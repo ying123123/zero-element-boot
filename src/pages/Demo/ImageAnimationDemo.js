@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 // import NamedLayout from '@/components/NamedLayout';
 // import NamedCart from '@/components/NamedCart';
 
-const { ImageItem } = require('@/components/composition/Demo');
+const { ImageItem } = require('@/composition/Demo');
 
 import { PlainList, NamedLayout, NamedCart } from "@/export";
 

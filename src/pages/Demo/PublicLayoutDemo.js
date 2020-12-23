@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
 // const AutoX = require('@/AutoX');
-const AutoComponent = require('@/core/AutoComponent');
-const presenter = require('@/components/presenter/default');
+const AutoComponent = require('@/composition/Demo/node_modules/@/core/AutoComponent');
+const presenter = require('@/presenter/default');
 
 /**
  * 样式参考

@@ -4,6 +4,7 @@ module.exports = function useLayout() {
   const layoutRef = useRef();
   const [init, setInit] = useState(false);
 
+  // set flag for only one time run 
   useEffect(_ => {
     if (init === false) {
       setInit(true);

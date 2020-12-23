@@ -1,13 +1,13 @@
 import React from 'react';
 import { Spin } from 'antd';
 import GetField from '@/components/gateway/GetField';
-import AutoCombination from '@/core/AutoCombination';
+import AutoCombination from '@/autox/AutoCombination/AutoChart';
 import NamedList from '@/components/list';
-import NamedLayout from '@/core/NamedLayout';
-const AutoComponent = require('@/core/AutoComponent');
+import NamedLayout from '@/autox/node_modules/@/core/NamedLayout';
+const AutoComponent = require('@/composition/Demo/node_modules/@/core/AutoComponent');
 
 
-const presenter = require('@/components/presenter/default');
+const presenter = require('@/presenter/default');
 
 export default function Demo(props) {
 

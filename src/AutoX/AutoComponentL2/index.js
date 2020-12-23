@@ -1,43 +1,47 @@
 const React = require('react');
 const { useState, useEffect } = require('react');
-const NamedLayout = require('@/core/NamedLayout');
-// const presenter = require('@/components/presenter');
+const NamedLayout = require('@/components/NamedLayout');
+const Gateway = require('@/components/gateway/Gateway');
 const useLayout = require('@/hooks/useLayout');
-const GateWay = require('@/components/GateWay');
 const requireConfig = require('@/utils/requireConfig');
 const promiseAjax = require('@/utils/request');
 
+// const presenter = require('@/components/presenter');
 // const allComponents = {
 //   ...presenter,
 // };
 
-module.exports = function AutoX(props) {
+module.exports = function (props) {
   const parent = module.parents[0];
 
   const { config = requireConfig(parent), allComponents={} } = props;
-  const [cfg, setCfg] = useState(config);
+
+  //获取 /public 配置文件所需代码
+  //start
+  const { cfgLayout={} } = config;
+  const { path='' } = cfgLayout;
+  const [restartRender, setRestartRender] = useState(0);
+  //end
+
+  const cfgData = path?undefined:config;
+
+  const [cfg, setCfg] = useState(cfgData);
   const { layout, ...restCfg } = cfg || {};
   const { children, ...restLayout } = layout || {};
   const [layoutRef, { getClassName }] = useLayout();
 
   useEffect(_ => {
-    const reg = /.\/src\/pages\/([\w\/]+)\/[\w.]+$/.exec(parent);
-    let parentPath
-    if (reg) {
-      parentPath = reg[1];
-    }
 
     if (cfg === undefined) {
-      promiseAjax(`/${parentPath}/layout.json`, {
+      promiseAjax(`/x/${path}/layout.json`, {
         _t: new Date().getTime(),
       })
         .then(data => {
           setCfg(data);
+          setRestartRender(restartRender + 1)
         })
     }
   }, []);
-  
-  // console.log('cfg = ', cfg)
 
   return <div
     className={getClassName()}
@@ -52,9 +56,9 @@ module.exports = function AutoX(props) {
             gatewayProps = { ...gatewayProps, ...gateway.props }
           }
 
-          return <GateWay key={i} {...gatewayProps} span={span}>
+          return <Gateway key={i} {...gatewayProps} span={span}>
             <C name={name} />
-          </GateWay>
+          </Gateway>
         })}
       </NamedLayout>
     ) : ''}
