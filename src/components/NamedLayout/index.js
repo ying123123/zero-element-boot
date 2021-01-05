@@ -1,34 +1,35 @@
-import React, { forwardRef } from 'react';
-const DefaultLayoutSet = require('../layout');
+const React = require('react');
+const { useImperativeHandle, forwardRef } = require('react');
+const useLayout = require('@/utils/useLayout');
+const LayoutSet = require('./export');
 
-// change history
-// CR.2020-12-26 custom LayoutSet
+module.exports = forwardRef(function NamedLayout({ name, props, layout, cart={}, isValidLine=true, children, ...rest }, ref) {
+  const [layoutRef, { getClassName }] = useLayout();
 
-/**
- * NameLayout [,NamedCart] 负责处理数据传递，具体的 Layout[Flexbox,...] 不负责处理数据传递
- * 区别于 NamedGateway 数据传递由具体的 Gateway 处理
- * @param {命名组件名称} name 
- * @param {命名组件自定义属性} props
- * @param {命名组件的 [name, props] 通过 layout 传递 } layout
- */
-export default forwardRef(function NamedLayout({children, xname, props, layout={xname, props}, isLastItem, layoutSet, ...rest}, ref) {
+  useImperativeHandle(ref, () => ({
+    getClassName: getClassName,
+  }));
 
-  // custom layoutSet first
-  const LayoutSet = layoutSet || DefaultLayoutSet
+  let layoutConfig = { ...layout };
 
-  // retrieve isLastItem for layout
-  const isLastItemConfig = {isLastItem: isLastItem}
+  if (typeof props === 'string') {
+    layoutConfig = {
+      ...layout,
+      name: props,
+      isValidLine
+    };
+  } else {
+    layoutConfig = { name, ...props, ...layout, isValidLine };
+  }
 
-  const layoutName = (typeof layout === 'string') ? layout : layout.xname
-  const Layout = LayoutSet[layoutName] || tips(layoutName);
+  const Layout = LayoutSet[layoutConfig.name] || tips(layoutConfig.name);
 
-  // just forward ref to the specified layout (e.g. Flexbox)
-  return <Layout {...layout.props} {...isLastItemConfig} ref={ref}>
+  return <Layout {...layoutConfig} ref={layoutRef}>
     {React.Children.toArray(children).map(child => {
-      let element = React.cloneElement(child, {
+      return React.cloneElement(child, {
         ...rest,
+        cart,
       })
-      return element;
     })}
   </Layout>
 })

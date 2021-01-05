@@ -31,7 +31,6 @@
     "gulp-concat": "^2.6.1",
     "react-test-renderer": "^16.9.0",
     "rimraf": "^2.7.1",
-    "umi": "^3.2.6",
-    "webpack": "^5.11.0"
+    "umi": "^3.2.6"
   }
 }

@@ -1,52 +1,51 @@
 {
-    "data":{"avatar":"http://url", "gender":"Male","name":"admin#1"},
+    "props": 
+    {
+        "items": [],
+        "tabs": {}
+    },
     "layout": 
-     {
-         "name": "Grid",
-         "props":{"cols": 4},
-         "children":[
-             {
-                 "name": "List",
-                 "span": 1,
-                 "seperator": "Divider",
-                 "cart":
-                 {
-                    "name": "Cart",
-                    "props": 
+    {
+        "name": "Grid",
+        "props":
+        {
+           "cols": 4
+        }
+    },
+    "children": [
+        {
+            "name": "NamedList",
+            "span": 1,
+            "gateway": 
+            {
+                "name": "Gateway",
+                "props": 
+                {
+                    "field": "items",
+                    "converter":
                     {
-                       "fill": "#1fe"
+                        "name": "title",
+                        "sex": "gender"
                     }
-                 },
-                 "gateway": 
-                 {
-                     "name": "Gateway",
-                     "props": 
-                     {
-                         "field": "items",
-                         "filter":
-                         {
-                             "name": "title",
-                             "sex": "gender"
-                         }
-                     }
-                 }
-             },
+                }
+            }
+        },
+        {
+            "name": " Tab",
+            "span": 1,
+            "gateway":
              {
-                 "name": " Tab",
-                 "span": 1,
-                 "cart": "NamedCart",
-                 "gateway":
-                 {
-                     "name": "Gateway",
-                     "props": {"field": "data"}
-                 }
-             },
-             {
-                 "name": " Tab",
-                 "span": 1,
-                 "cart": "NamedCart",
-                 "gateway": "MyDefinedGateway"
-             }
-         ]
-     }
- }
+                "name": "Gateway",
+                "props":
+                {
+                   "field": "items"
+                }
+            }
+        },
+        {
+            "name": " Tab",
+            "span": 1,
+            "gateway": "MyDefinedGateway"
+        }
+    ]
+}

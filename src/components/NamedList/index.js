@@ -1,21 +1,21 @@
 const React = require('react');
-const NamedListSet = require('../list');
+const promiseAjax = require('@/utils/request');
+const NamedListSet = require('./export');
+const formatData = require('./formatData');
 
-//export default function NamedList({ name, API, props, children, spin = '' }) {
-export default function NamedList({ xname, props, children, ...data}) {
+export default function NamedList({ name, API, props, children, spin = '' }) {
+  const NamedList = NamedListSet[name] || tips(name);
 
-  const _List = NamedListSet[xname] || tips(xname);
+  function handleQuery(queryData) {
+    return promiseAjax(API, queryData).then(response => {
+      return formatData(response.data);
+    });
+  }
 
-  // function handleQuery(queryData) {
-  //   return promiseAjax(API, queryData).then(response => {
-  //     return formatData(response.data);
-  //   });
-  // }
-
-  //return <NamedList {...props} onQuery={handleQuery} spin={spin}>
-  return <_List {...props} {...data}>
+  return <NamedList {...props} onQuery={handleQuery} spin={spin}>
     {children}
-  </_List>
+  </NamedList>
+
 }
 
 function tips(name) {

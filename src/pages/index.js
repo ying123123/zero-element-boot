@@ -1,28 +1,14 @@
 import React from 'react';
+import Demo from './demo/index';
 
-import PlainListDemo from './Demo/PlainListDemo';
-import RoundListDemo from './Demo/RoundListDemo';
-import RectangleListDemo from './Demo/RectangleListDemo';
-import CircleListDemo from './Demo/CircleListDemo';
-import AdListDemo from './Demo/AdListDemo';
+import CartList from '@/pages/test/CartList';
+import PlainListDemo from '@/pages/test/PlainListDemo';
+import UserListDemo from '@/pages/test/UserListDemo';
+import PublicLayoutDemo from '@/pages/PublicLayoutDemo';
+import ImageAnimationDemo from '@/pages/test/ImageAnimationDemo';
+import SelectedListDemo from '@/pages/test/SelectedListDemo';
 
-import { Cart } from "@/components/cart";
+export default function Index(props) {
 
-import TestUserSelectionDemo from './TestUserSelectionDemo';
-import NamedCartTest from './Test/NamedCartTest'
-import IsValidElementTest from './Test/IsValidElementTest'
-import ContainerTest from './Test/ContainerTest'
-import AutoLayoutDemo from './AutoLayoutDemo'
-import UserItemDemo from './Demo/UserItemDemo'
-
-export default function index(props) {
-
-  function onItemClickHandle () {
-    // console.log('//')
-  }
-
-  //<TestUserSelectionDemo />
-  return (
-      <AdListDemo onItemClickHandle={onItemClickHandle} />
-  )
+  return <SelectedListDemo/>
 }
