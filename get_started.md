@@ -1,13 +1,7 @@
 ##### 如何创建一个React组件
 
 ```react
-import React from 'react';
-
-export default function HelloComponent(props) {
-    return (
-        <div>Hello React!</div>
-    )
-}
+get_started.md
 ```
 
 ##### 如何创建一个React组件  `with less`
